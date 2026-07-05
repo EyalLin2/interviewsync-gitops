@@ -1,0 +1,25 @@
+# Production overrides for the backend Helm chart
+# CI automatically updates `image.tag` on every v*.*.* git tag
+
+image:
+  repository: <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/interviewsync-backend
+  tag: "stable"
+
+replicaCount: 2
+
+env:
+  DB_HOST: "interviewsync-backend-postgresql.production.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: "interviewsync"
+  DB_USER: "interviewsync"
+  DB_PASSWORD: "prod-password-change-me"
+  SECRET_KEY: "prod-secret-key-change-me"
+  FRONTEND_URL: "https://interviewsync.example.com"
+  UPLOAD_FOLDER: "/app/uploads"
+  GROQ_API_KEY: ""
+  TWILIO_ACCOUNT_SID: ""
+  TWILIO_AUTH_TOKEN: ""
+  TWILIO_WHATSAPP_FROM: ""
+
+monitoring:
+  enabled: true

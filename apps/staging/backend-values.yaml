@@ -1,0 +1,25 @@
+# Staging overrides for the backend Helm chart
+# CI automatically updates `image.tag` on every push to main
+
+image:
+  repository: <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/interviewsync-backend
+  tag: "latest"
+
+replicaCount: 2
+
+env:
+  DB_HOST: "interviewsync-backend-postgresql.staging.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: "interviewsync"
+  DB_USER: "interviewsync"
+  DB_PASSWORD: "staging-password-change-me"
+  SECRET_KEY: "staging-secret-key-change-me"
+  FRONTEND_URL: "https://staging.interviewsync.example.com"
+  UPLOAD_FOLDER: "/app/uploads"
+  GROQ_API_KEY: ""
+  TWILIO_ACCOUNT_SID: ""
+  TWILIO_AUTH_TOKEN: ""
+  TWILIO_WHATSAPP_FROM: ""
+
+monitoring:
+  enabled: true

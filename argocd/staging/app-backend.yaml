@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: interviewsync-backend-staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<YOUR_USERNAME>/InterviewSync
+    targetRevision: main
+    path: backend/charts
+    helm:
+      valueFiles:
+        - https://raw.githubusercontent.com/<YOUR_USERNAME>/interviewsync-gitops/main/apps/staging/backend-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,26 @@
+# Production overrides for the frontend Helm chart
+
+image:
+  repository: <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/interviewsync-frontend
+  tag: "stable"
+
+replicaCount: 2
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+  hosts:
+    - host: interviewsync.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: interviewsync-tls
+      hosts:
+        - interviewsync.example.com
+
+env:
+  BACKEND_URL: "http://interviewsync-backend-production:8000"
+  SECRET_KEY: "prod-secret-key-change-me"

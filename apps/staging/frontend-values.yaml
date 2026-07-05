@@ -1,0 +1,27 @@
+# Staging overrides for the frontend Helm chart
+# CI automatically updates `image.tag` on every push to main
+
+image:
+  repository: <AWS_ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com/interviewsync-frontend
+  tag: "latest"
+
+replicaCount: 2
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+  hosts:
+    - host: staging.interviewsync.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: interviewsync-staging-tls
+      hosts:
+        - staging.interviewsync.example.com
+
+env:
+  BACKEND_URL: "http://interviewsync-backend-staging:8000"
+  SECRET_KEY: "staging-secret-key-change-me"

@@ -1,0 +1,16 @@
+auth:
+  username: interviewsync
+  password: prod-password-change-me
+  database: interviewsync
+
+primary:
+  persistence:
+    enabled: true
+    size: 20Gi
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 500m
+      memory: 512Mi

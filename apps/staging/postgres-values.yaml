@@ -1,0 +1,18 @@
+# Staging PostgreSQL — bitnami/postgresql Helm chart values
+
+auth:
+  username: interviewsync
+  password: staging-password-change-me
+  database: interviewsync
+
+primary:
+  persistence:
+    enabled: true
+    size: 10Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
