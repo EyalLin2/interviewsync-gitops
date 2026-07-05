@@ -7,13 +7,16 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: postgresql
-    targetRevision: "15.5.17"
-    helm:
-      valueFiles:
-        - https://raw.githubusercontent.com/<YOUR_USERNAME>/interviewsync-gitops/main/apps/staging/postgres-values.yaml
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: postgresql
+      targetRevision: "15.5.17"
+      helm:
+        valueFiles:
+          - $values/apps/staging/postgres-values.yaml
+    - repoURL: https://github.com/EyalLin2/interviewsync-gitops
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: staging

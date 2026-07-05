@@ -7,13 +7,16 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
-    repoURL: https://github.com/<YOUR_USERNAME>/InterviewSync
-    targetRevision: main
-    path: backend/charts
-    helm:
-      valueFiles:
-        - https://raw.githubusercontent.com/<YOUR_USERNAME>/interviewsync-gitops/main/apps/production/backend-values.yaml
+  sources:
+    - repoURL: https://github.com/EyalLin2/InterviewSync
+      targetRevision: main
+      path: backend/charts
+      helm:
+        valueFiles:
+          - $values/apps/production/backend-values.yaml
+    - repoURL: https://github.com/EyalLin2/interviewsync-gitops
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: production
